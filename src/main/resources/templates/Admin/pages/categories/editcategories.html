@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{Admin/include/head.html :: head}"></head>
+<body>
+<div th:replace="~{Admin/include/header.html :: header}"></div>
+<div th:replace="~{Admin/include/side.html :: aside}"></div>
+<div class="container mt-4">
+    <h2>Edit Category</h2>
+    <form action="#" th:action="@{/editcategories/{id}(id=${category.id})}" method="post" th:object="${category}">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" th:field="*{description}"></textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+</div>
+<div th:replace="~{Admin/include/footer.html :: footer}"></div>
+<div th:replace="~{Admin/include/botton-footer.html :: .botton-footer}"></div>
+</body>
+</html>
