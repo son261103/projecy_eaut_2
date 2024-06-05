@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{Admin/include/head.html :: head}"></head>
+<style>
+    /* Container for adding products */
+    .add-product-container {
+        /* Inherit height and width from the form */
+        flex: 1;
+        padding-top: 2rem; /* Điều chỉnh padding nếu cần */
+        padding-left: 1rem;
+        height: auto;
+        margin-left: 20%;
+    }
+
+    /* Form for adding products */
+    .add-product-form {
+        height: 100%; /* Làm cho bảng chiếm toàn bộ chiều cao của container */
+        width: 90%;
+    }
+
+    .add-product-form .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .add-product-form label {
+        font-weight: bold;
+    }
+
+    .add-product-form .form-control {
+        border-radius: 4px;
+        border: 1px solid #ced4da;
+    }
+
+    .add-product-form .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .add-product-form .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .add-product-form .form-check-input {
+        margin-top: 0.3rem;
+    }
+
+    .add-product-form .form-check-label {
+        margin-left: 0.3rem;
+    }
+</style>
+<body>
+<div th:replace="~{Admin/include/header.html :: header}"></div>
+<div th:replace="~{Admin/include/side.html :: aside}"></div>
+<div class="container mt-5 add-product-container">
+    <h2>Thêm sản phẩm của danh mục: <span th:text="${categoryName}"></span></h2>
+    <form th:action="@{/addproduct(categoryId=${categoryId})}" th:object="${product}" method="post" class="add-product-form">
+        <div class="form-group">
+            <label for="name">Tên sản phẩm</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Mô tả</label>
+            <input type="text" class="form-control" id="description" th:field="*{description}" required>
+        </div>
+        <div class="form-group">
+            <label for="price">Giá</label>
+            <input type="number" class="form-control" id="price" th:field="*{price}" required>
+        </div>
+        <div class="form-group">
+            <label for="stock">Số lượng tồn kho</label>
+            <input type="number" class="form-control" id="stock" th:field="*{stock}" required>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="isactive" th:field="*{isactive}">
+                <label class="form-check-label" for="isactive">Hoạt động</label>
+            </div>
+        </div>
+        <input type="hidden" th:field="*{categoryId}" th:value="${categoryId}">
+        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+    </form>
+</div>
+<div th:replace="~{Admin/include/footer.html :: footer}"></div>
+<div th:replace="~{Admin/include/botton-footer.html :: .botton-footer}"></div>
+</body>
+</html>

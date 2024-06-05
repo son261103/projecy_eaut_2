@@ -1,5 +1,6 @@
 package com.example.admingiadien.Entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,9 +34,14 @@ public class Products {
     @Column(name = "stock")
     private Integer stock;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Categories category;
+    @Column(name = "category_id")
+    private Long categoryId;
+
+    @Column(name = "isactive")
+    private Boolean isactive;
+
+    @Column(name = "image")
+    private String image;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -43,9 +49,4 @@ public class Products {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "images")
-    private String images;
-
-    @Column(name = "active", nullable = false)
-    private boolean active;
 }

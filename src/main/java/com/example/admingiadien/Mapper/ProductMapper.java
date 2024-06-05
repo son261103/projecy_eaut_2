@@ -1,6 +1,5 @@
 package com.example.admingiadien.Mapper;
 
-import com.example.admingiadien.DTO.CategoriesDTO;
 import com.example.admingiadien.DTO.ProductsDTO;
 import com.example.admingiadien.Entity.Categories;
 import com.example.admingiadien.Entity.Products;
@@ -22,7 +21,8 @@ public class ProductMapper implements EntityMapper<Products, ProductsDTO>{
                 .description(dto.getDescription())
                 .price(dto.getPrice())
                 .stock(dto.getStock())
-                .category(Categories.builder().id(dto.getId()).build())
+                .isactive(dto.getIsactive())
+                .image(dto.getImage())
                 .createdAt(dto.getCreatedAt())
                 .updatedAt(dto.getUpdatedAt())
                 .build();
@@ -38,6 +38,8 @@ public class ProductMapper implements EntityMapper<Products, ProductsDTO>{
                 .price(entity.getPrice())
                 .stock(entity.getStock())
                 .categoryId(entity.getId())
+                .isactive(entity.getIsactive())
+                .image(entity.getImage())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
                 .build();
@@ -47,6 +49,7 @@ public class ProductMapper implements EntityMapper<Products, ProductsDTO>{
     public List<Products> toEntity(List<ProductsDTO> Dto) {
         return List.of();
     }
+
 
     @Override
     public List<ProductsDTO> toDto(List<Products> entity) {
@@ -59,4 +62,5 @@ public class ProductMapper implements EntityMapper<Products, ProductsDTO>{
         );
         return dtos;
     }
+
 }

@@ -1,40 +1,40 @@
 package com.example.admingiadien.Service;
 
 import com.example.admingiadien.DTO.ProductsDTO;
+import com.example.admingiadien.Entity.Categories;
 import com.example.admingiadien.Entity.Products;
 import com.example.admingiadien.Mapper.ProductMapper;
+import com.example.admingiadien.Repository.CategoriesRepository;
 import com.example.admingiadien.Repository.ProductRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Component
 @RequiredArgsConstructor
 public class ProductService {
     private final ProductMapper productMapper;
     private final ProductRepository productRepository;
-
-
-
-    // lấy id của product
-    @Transactional
-    public ProductsDTO getProductById(int id){
-        Products products = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Khoong tìm thấy sản phẩm có id là: " + id));
-        return productMapper.toDto(products);
+    private final CategoriesRepository categoriesRepository;
+    //hien thi product
+    public List<ProductsDTO> ShowAllProducts() {
+        List<Products> productsList = productRepository.findAll();
+        List<Categories> categories = categoriesRepository.findAll();
+        return productMapper.toDto(productsList);
     }
 
-    // hieenr thị sản phẩm
-    @Transactional
-    public List<ProductsDTO> getProductsByCategoryId(int categoryId){
-        List<Products> productsList = productRepository.findByCategoryId(categoryId);
-        return productsList.stream()
-                .map(productMapper::toDto)
-                .collect(Collectors.toList());
+    // Thêm sản phẩm mới
+    public ProductsDTO addProduct(ProductsDTO productDTO) {
+        productDTO.setCreatedAt(LocalDateTime.now());
+        productDTO.setUpdatedAt(LocalDateTime.now());
+        Products product = productMapper.toEntity(productDTO);
+        productRepository.save(product);
+        return productMapper.toDto(product);
     }
-
 
 }
