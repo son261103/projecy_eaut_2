@@ -38,7 +38,7 @@ public class CategoriesService {
 
     // sửa danh mục sản phẩm
     @Transactional
-    public CategoriesDTO getCategoriesById(int id){
+    public CategoriesDTO getCategoriesById(Long id){
         Categories categories = categoriesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Không tìm thấy danh mục sản phẩm id = !" + id));
         CategoriesDTO categoriesDTO = categoriesMapper.toDto(categories);
@@ -55,7 +55,7 @@ public class CategoriesService {
 
     //xóa danh mục sản phẩm
     @Transactional
-    public CategoriesDTO deleteCategories(int CategoriesId){
+    public CategoriesDTO deleteCategories(Long CategoriesId){
         CategoriesDTO categoriesDTO = getCategoriesById(CategoriesId);
         categoriesRepository.deleteById(CategoriesId);
         return categoriesDTO;

@@ -8,6 +8,7 @@
     margin-top: 5rem;
     margin-left: 18%;
     margin-bottom: 2rem;
+    animation: slideIn 0.8s ease-out; /* Hiệu ứng trượt vào */
 }
 
 /* Class cho tiêu đề trang */
@@ -18,8 +19,8 @@
     margin-bottom: 20px;
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
-    text-align: center; /* Căn giữa tiêu đề */
-    animation: fadeIn 0.5s ease-out;
+    text-align: center;
+    animation: fadeIn 0.5s ease-out; /* Hiệu ứng nổi bật */
 }
 
 /* Class cho nút "Thêm danh mục" */
@@ -32,13 +33,18 @@
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 20px;
-    transition: background-color 0.3s;
-    display: block; /* Để nút chiếm toàn bộ chiều rộng */
-    width: fit-content; /* Để nút chỉ rộng bằng nội dung */
+    transition: background-color 0.3s, transform 0.2s;
+    width: fit-content;
+    cursor: pointer; /* Thêm con trỏ chuột */
 }
 
 .add-category-btn:hover {
     background-color: #0056b3;
+    transform: scale(1.05); /* Hiệu ứng thu phóng */
+}
+
+.add-category-btn:active {
+    transform: scale(0.95); /* Hiệu ứng thu nhỏ khi nhấn */
 }
 
 /* Class cho bảng danh sách */
@@ -95,9 +101,9 @@
     text-decoration: none;
     cursor: pointer;
     border-radius: 4px;
-    width: 80%; /* Đặt chiều rộng cố định cho tất cả các nút */
-    margin: 0 auto; /* Căn giữa nút trong ô */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ nhẹ cho nút */
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .category-btn-edit {
@@ -114,6 +120,10 @@
     transform: translateY(-2px); /* Hiệu ứng nút nâng lên khi hover */
 }
 
+.category-btn-edit:active {
+    transform: scale(0.95); /* Hiệu ứng thu nhỏ khi nhấn */
+}
+
 .category-btn-delete {
     background-color: #dc3545;
     color: white;
@@ -126,6 +136,10 @@
     text-decoration: none;
     border-color: #7a1521;
     transform: translateY(-2px);
+}
+
+.category-btn-delete:active {
+    transform: scale(0.95);
 }
 
 .category-btn-view {
@@ -142,6 +156,10 @@
     transform: translateY(-2px);
 }
 
+.category-btn-view:active {
+    transform: scale(0.95);
+}
+
 /* Class cho hiệu ứng hover và stripe trên hàng */
 .categories-table tbody tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -150,6 +168,7 @@
 .categories-table tbody tr:hover {
     background-color: #e2e6ea;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s; /* Thêm hiệu ứng chuyển động */
 }
 
 /* Thêm một hiệu ứng nhẹ cho form khi tải */
@@ -163,6 +182,18 @@
         transform: translateY(0);
     }
 }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 
 /* Responsive styles */
 @media (max-width: 768px) {

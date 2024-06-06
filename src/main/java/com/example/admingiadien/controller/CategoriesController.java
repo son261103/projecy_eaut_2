@@ -50,14 +50,14 @@ public class CategoriesController {
 
     // sửa danh mục sản phẩm
     @GetMapping("/admin/editcategories/{id}")
-    public String showEditCategories(@PathVariable("id") int id , Model model){
+    public String showEditCategories(@PathVariable("id") Long id , Model model){
         CategoriesDTO categoriesDTO = categoriesService.getCategoriesById(id);
         model.addAttribute("category", categoriesDTO);
         return "Admin/pages/categories/editcategories";
     }
 
     @PostMapping("/admin/editcategories/{id}")
-    public String editCategories(@PathVariable("id") int id,
+    public String editCategories(@PathVariable("id") Long id,
                                  @ModelAttribute("CategoriesDTO") CategoriesDTO categoriesDTO,
                                  RedirectAttributes redirectAttributes) throws IOException {
         // Retrieve existing category from the database
@@ -75,7 +75,7 @@ public class CategoriesController {
 
     // xóa danh mục sản phẩm
     @GetMapping("/deletecategories/{categoriesId}")
-    public String deleteCategories(@PathVariable int categoriesId){
+    public String deleteCategories(@PathVariable Long categoriesId){
         categoriesService.deleteCategories(categoriesId);
         return "redirect:/admin/categories";
     }

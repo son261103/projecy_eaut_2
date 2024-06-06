@@ -27,6 +27,7 @@ public class ProductService {
     private final CategoriesRepository categoriesRepository;
     private final CategoriesMapper categoriesMapper;
     private final FilebaseService filebaseService;
+
     //hien thi product
     public List<ProductsDTO> ShowAllProducts() {
         List<Products> productsList = productRepository.findAll();
@@ -46,14 +47,19 @@ public class ProductService {
     }
 
 
-
     // Lấy sản phẩm theo ID
-    public ProductsDTO getProductById(int productId) {
+    public ProductsDTO getProductById(Long productId) {
         Products product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + productId));
         return productMapper.toDto(product);
     }
 
+    // Lấy sản phẩm theo ID
+    public Products getProductByIds(Long productId) {
+        Products product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy sản phẩm với ID: " + productId));
+        return product;
+    }
 
     // Lấy danh sách các danh mục
     public List<CategoriesDTO> getAllCategories() {
@@ -63,7 +69,7 @@ public class ProductService {
 
 
     // Sửa sản phẩm
-    public ProductsDTO updateProduct(int productId, ProductsDTO productDTO, MultipartFile file) throws IOException {
+    public ProductsDTO updateProduct(Long productId, ProductsDTO productDTO, MultipartFile file) throws IOException {
         Products existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Sản phẩm không tồn tại"));
 

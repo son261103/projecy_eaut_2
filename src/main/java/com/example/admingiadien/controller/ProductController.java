@@ -25,7 +25,7 @@ public class ProductController {
 
     // Hiển thị sản phẩm
     @GetMapping("/admin/products")
-    public String getProductsByCategoryId(@RequestParam("categoryId") int categoryId, Model model) {
+    public String getProductsByCategoryId(@RequestParam("categoryId") Long categoryId, Model model) {
         List<ProductsDTO> products = productService.ShowAllProducts();
         CategoriesDTO category = categoriesService.getCategoriesById(categoryId);
         model.addAttribute("categoryName", category.getName());
@@ -36,7 +36,7 @@ public class ProductController {
 
     // Thêm sản phẩm
     @GetMapping("/admin/addproduct")
-    public String showAddProductForm(@RequestParam("categoryId") Long categoryId,@RequestParam("categoryId") int id ,Model model) {
+    public String showAddProductForm(@RequestParam("categoryId") Long categoryId,@RequestParam("categoryId") Long id ,Model model) {
         ProductsDTO product = new ProductsDTO();
         product.setCategoryId(categoryId);
         CategoriesDTO category = categoriesService.getCategoriesById(id);
@@ -60,7 +60,7 @@ public class ProductController {
 
     // Sửa sản phẩm
     @GetMapping("/admin/products/{productId}/edit")
-    public String showEditProductForm(@PathVariable int productId, Model model) {
+    public String showEditProductForm(@PathVariable Long productId, Model model) {
         ProductsDTO productDTO = productService.getProductById(productId);
         model.addAttribute("productDTO", productDTO);
         List<CategoriesDTO> categories = productService.getAllCategories();
@@ -69,7 +69,7 @@ public class ProductController {
     }
 
     @PostMapping("/admin/products/{productId}/edit")
-    public String editProduct(@PathVariable int productId, @RequestParam("categoryId") Long categoryId, @ModelAttribute("productDTO") ProductsDTO productDTO, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    public String editProduct(@PathVariable Long productId, @RequestParam("categoryId") Long categoryId, @ModelAttribute("productDTO") ProductsDTO productDTO, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         try {
             productDTO.setUpdatedAt(LocalDateTime.now());
             productService.updateProduct(productId, productDTO, file);
@@ -78,12 +78,12 @@ public class ProductController {
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage", "Error updating product.");
         }
-        return "redirect:/products?categoryId=" + categoryId;
+        return "redirect:/admin/products?categoryId=" + categoryId;
     }
 
     // Hiển thị chi tiết sản phẩm
     @GetMapping("/admin/products/{productId}/detail")
-    public String showProductDetail(@PathVariable int productId, Model model) {
+    public String showProductDetail(@PathVariable Long productId, Model model) {
         ProductsDTO productsDTO = productService.getProductById(productId);
         model.addAttribute("productDTO", productsDTO);
         return "Admin/pages/products/productdetail";
