@@ -2,14 +2,15 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{Admin/include/head.html :: head}"></head>
+
 <body>
 <div th:replace="~{Admin/include/header.html :: header}"></div>
 <div th:replace="~{Admin/include/side.html :: aside}"></div>
 <div>
-    <div class="container mt-4">
-        <h2>Danh sách danh mục</h2>
-        <a th:href="@{/addcategories}" class="btn btn-primary">Thêm danh mục</a>
-        <table class="table table-striped mt-3">
+    <div class="categories-page">
+        <h2 class="categories-title">Danh sách danh mục</h2>
+        <a th:href="@{/admin/addcategories}" class="btn add-category-btn">Thêm danh mục</a>
+        <table class="categories-table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -30,14 +31,14 @@
                 <td th:text="${category.createdAt}"></td>
                 <td th:text="${category.updatedAt}"></td>
                 <td>
-                    <a th:href="@{/editcategories/{id}(id=${category.id})}" class="btn btn-warning btn-sm">Sửa</a>
+                    <a th:href="@{/admin/editcategories/{id}(id=${category.id})}" class="category-btn category-btn-edit">Sửa</a>
                 </td>
                 <td>
-                    <a href="#" class="btn btn-danger btn-sm"
+                    <a href="#" class="category-btn category-btn-delete"
                        th:attr="onclick='confirmDelete(\'' + ${category.id} + '\');'">Xóa</a>
                 </td>
                 <td>
-                    <a th:href="@{'/products?categoryId=' + ${category.id}}" class="btn btn-primary btn-sm">Hiển thị sản phẩm</a>
+                    <a th:href="@{'/admin/products?categoryId=' + ${category.id}}" class="category-btn category-btn-view">Hiển thị sản phẩm</a>
                 </td>
             </tr>
             </tbody>

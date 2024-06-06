@@ -24,5 +24,5 @@ public class ProductsDTO {
     private String image;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
+    private String imageDescription;
 }

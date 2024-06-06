@@ -21,7 +21,7 @@ public class CategoriesController {
     private CategoriesService categoriesService;
 
     // hiển thị danh mục sản phẩm
-    @GetMapping("/danhmuc")
+    @GetMapping("/admin/categories")
     public String showFormCategories(Model model){
         List<CategoriesDTO> categoriesDTOList = categoriesService.showAllCategories();
         model.addAttribute("categories", categoriesDTOList);
@@ -29,33 +29,34 @@ public class CategoriesController {
     }
 
     //thêm danh mục sản phẩm
-    @GetMapping("/addcategories")
+    @GetMapping("/admin/addcategories")
     public String showFormAddCategories(Model model){
         model.addAttribute("category" , new CategoriesDTO());
         return "Admin/pages/categories/addCategories";
     }
-    @PostMapping("addcategories")
+
+    @PostMapping("/admin/addcategories")
     public String addCategories(@ModelAttribute("category") CategoriesDTO categoriesDTO, RedirectAttributes redirectAttributes){
         try {
             categoriesService.addCategories(categoriesDTO);
             redirectAttributes.addFlashAttribute("successMessage" , "Thêm nhân viên thành công!");
-            return "redirect:/danhmuc";
+            return "redirect:/admin/categories";
         }catch (RuntimeException e){
             e.printStackTrace();
             redirectAttributes.addFlashAttribute("errorMessage" ,"Failed to add category: " + e.getMessage());
-            return  "redirect:/addcategories";
+            return  "redirect:/admin/addcategories";
         }
     }
 
     // sửa danh mục sản phẩm
-    @GetMapping("/editcategories/{id}")
+    @GetMapping("/admin/editcategories/{id}")
     public String showEditCategories(@PathVariable("id") int id , Model model){
         CategoriesDTO categoriesDTO = categoriesService.getCategoriesById(id);
         model.addAttribute("category", categoriesDTO);
         return "Admin/pages/categories/editcategories";
     }
 
-    @PostMapping("/editcategories/{id}")
+    @PostMapping("/admin/editcategories/{id}")
     public String editCategories(@PathVariable("id") int id,
                                  @ModelAttribute("CategoriesDTO") CategoriesDTO categoriesDTO,
                                  RedirectAttributes redirectAttributes) throws IOException {
@@ -69,14 +70,14 @@ public class CategoriesController {
 
             categoriesService.editCategories(existingCategory);
         }
-        return "redirect:/danhmuc";
+        return "redirect:/admin/categories";
     }
 
     // xóa danh mục sản phẩm
     @GetMapping("/deletecategories/{categoriesId}")
     public String deleteCategories(@PathVariable int categoriesId){
         categoriesService.deleteCategories(categoriesId);
-        return "redirect:/danhmuc";
+        return "redirect:/admin/categories";
     }
 
 

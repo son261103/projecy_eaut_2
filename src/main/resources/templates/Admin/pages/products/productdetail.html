@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{Admin/include/head.html :: head}"></head>
+<body>
+<div th:replace="~{Admin/include/header.html :: header}"></div>
+<div th:replace="~{Admin/include/side.html :: aside}"></div>
+
+<div class="container mt-5 container-producdetail">
+    <h2 class="product-detail-title">Chi tiết sản phẩm</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-image">
+                <!-- Thêm hình ảnh sản phẩm nếu có -->
+                <!-- <img src="..." alt="Product Image"> -->
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="product-info">
+                <p><strong>ID: </strong> <span th:text="${productDTO.id}"></span></p>
+                <p><strong>Tên: </strong> <span th:text="${productDTO.name}"></span></p>
+                <p><strong>Mô tả: </strong> <span th:text="${productDTO.description}"></span></p>
+                <p><strong>Giá: </strong> <span th:text="${productDTO.price}"></span></p>
+                <p><strong>Số lượng tồn kho: </strong> <span th:text="${productDTO.stock}"></span></p>
+                <p><strong>Ngày tạo sản phẩm: </strong> <span th:text="${productDTO.createdAt}"></span></p>
+                <p><strong>Ngày cập nhật gần nhất</strong> <span th:text="${productDTO.updatedAt}"></span></p>
+            </div>
+            <div class="action-buttons">
+                <a th:href="@{/admin/products/{id}/edit(id=${productDTO.id})}" class="btn btn-warning btn-sm">Sửa sản phẩm </a>
+                <a href="#" class="btn btn-danger btn-sm" th:attr="onclick='confirmDelete(\'' + ${productDTO.id} + '\');'">Xóa sản phẩm</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{Admin/include/footer.html :: footer}"></div>
+<div th:replace="~{Admin/include/botton-footer.html :: .botton-footer}"></div>
+</body>
+</html>
